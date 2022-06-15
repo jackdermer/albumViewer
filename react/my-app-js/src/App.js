@@ -26,6 +26,8 @@ function App() {
       setToken(token)
       spotifyApi.setAccessToken(token);
 
+      document.addEventListener("keypress", handleKeyDown);
+
       const getCurrentTrack = setInterval(() => {
         spotifyApi.getMyCurrentPlayingTrack().then(function(data) {
           setAlbum(data.item.album.images[0].url);
@@ -42,18 +44,6 @@ function App() {
       window.localStorage.removeItem("token")
   }
 
-  const getCurrentTrack = () => {
-    console.log("called");
-    console.log(spotifyApi.getAccessToken())
-
-    spotifyApi.getMyCurrentPlayingTrack().then(function(data) {
-      console.log(data);
-      setAlbum(data.item.album.images[0].url);
-    }, function(err) {
-      console.log(err);
-    });
-  }
-
   const fullScreen = () => {
     if (document.fullscreenElement) {
       document.exitFullscreen()
@@ -62,18 +52,42 @@ function App() {
     }
   }
 
+  const handleKeyDown = (event) => {
+    console.log("hello");
+    switch (event.key) {
+      case 'f':
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+        } else {
+          document.documentElement.requestFullscreen();
+        } 
+        break;
+      case 'l':
+        if (token) {
+          logout()
+        } else {
+          window.location.href = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`
+        }
+    }
+
+    
+    if (event.key == 'f') {
+
+    }
+  }
+
 
   return (
       <div className="App">
-          <header className="App-header">
-              {!token ?
-                  <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
-                      to Spotify</a>
-                  : <button onClick={logout} hidden>Logout</button>}
-          </header>
-          <div class="album-box">
-            <img onClick={fullScreen} src={album}></img>
-          </div>
+        {/* <header className="App-header">
+                {!token ?
+                    <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
+                        to Spotify</a>
+                    : <button onClick={logout}>Logout</button>}
+            </header> */}
+        <div className="album-box">
+          <img src={album}/>
+        </div>
       </div>
   );
 }

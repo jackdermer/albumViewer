@@ -24,27 +24,27 @@ function App() {
       // window.location.href = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`
       // spotifyApi.setAccessToken(hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]);
 
-      // const handleKeyDown = (event) => {
-      //   console.log("hello");
-      //   switch (event.key) {
-      //     case 'f':
-      //       if (document.fullscreenElement) {
-      //         document.exitFullscreen();
-      //       } else {
-      //         document.documentElement.requestFullscreen();
-      //       } 
-      //       break;
-      //     case 'l':
-      //       if (token) {
-      //         logout()
-      //       } else {
-      //         window.location.href = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`
-      //       }
-      //       break;
-      //     default:
-      //       break;
-      //   }
-      // }
+      const handleKeyDown = (event) => {
+        console.log("hello");
+        switch (event.key) {
+          case 'f':
+            if (document.fullscreenElement) {
+              document.exitFullscreen();
+            } else {
+              document.documentElement.requestFullscreen();
+            } 
+            break;
+          case 'l':
+            if (token) {
+              logout()
+            } else {
+              window.location.href = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`
+            }
+            break;
+          default:
+            break;
+        }
+      }
 
       if (!token && hash) {
           token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
@@ -54,7 +54,7 @@ function App() {
       }
       spotifyApi.setAccessToken(token);
 
-      // document.addEventListener("keypress", handleKeyDown);
+      document.addEventListener("keypress", handleKeyDown);
 
       const getCurrentTrack = setInterval(() => {
         spotifyApi.getMyCurrentPlayingTrack().then(function(data) {
@@ -79,9 +79,9 @@ function App() {
       }
   }, [])
 
-  // const logout = () => {
-  //     window.localStorage.removeItem("token")
-  // }
+  const logout = () => {
+      window.localStorage.removeItem("token")
+  }
 
   const flipTextVis = () => {
     if (isTextVis) {
@@ -92,20 +92,17 @@ function App() {
   }
 
   return (
-      <div className="App">
+      <div onClick={flipTextVis} className="App">
         {isTextVis ? 
-        <div onClick={flipTextVis} className="album-box">
-          <img className='my-image' alt="" src={album}/>
+        <div className="album-box">
+          <img className='my-image my-image-opc' alt="" src={album}/>
           <h1 className='centered'><i>{song}</i><br/><h2>{artist}</h2></h1>
         </div>
         : 
-        <div onClick={flipTextVis} className="album-box">
-          <img alt="" src={album}/>
-        </div>
-        }
-        <div onClick={flipTextVis} className="album-box">
+        <div className="album-box">
           <img className='my-image' alt="" src={album}/>
         </div>
+        }
       </div>
   );
 }

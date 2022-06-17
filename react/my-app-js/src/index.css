@@ -24,7 +24,11 @@ body {
 }
 
 .my-image {
-  opacity: 0.4;
+  height: 70vh;
+}
+
+.my-image-opc {
+  opacity: 0.35;
 }
 
 /* Centered text */
@@ -41,10 +45,10 @@ body {
 
 h1 {
   margin-bottom: 20px;
-  font-size: 5vw;
+  font-size: 6vw;
 }
 
 h2 {
-  font-size: 4vw;
+  font-size: 5vw;
 }
 

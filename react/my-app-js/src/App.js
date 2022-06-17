@@ -96,11 +96,12 @@ function App() {
         {isTextVis ? 
         <div className="album-box">
           <img className='my-image my-image-opc' draggable='false' alt="" src={album}/>
-          <h1 className='centered'><i>{song}</i><br/><h2>{artist}</h2></h1>
+          <h1 className='text-in centered'><i>{song}</i><br/><h2>{artist}</h2></h1>
         </div>
         : 
         <div className="album-box">
           <img className='my-image' draggable='false' alt="" src={album}/>
+          <h1 className='text-out centered'><i>{song}</i><br/><h2>{artist}</h2></h1>
         </div>
         }
       </div>

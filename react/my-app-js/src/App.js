@@ -95,12 +95,12 @@ function App() {
       <div onClick={flipTextVis} className="App">
         {isTextVis ? 
         <div className="album-box">
-          <img className='my-image my-image-opc' alt="" src={album}/>
+          <img className='my-image my-image-opc' draggable='false' alt="" src={album}/>
           <h1 className='centered'><i>{song}</i><br/><h2>{artist}</h2></h1>
         </div>
         : 
         <div className="album-box">
-          <img className='my-image' alt="" src={album}/>
+          <img className='my-image' draggable='false' alt="" src={album}/>
         </div>
         }
       </div>
